@@ -10,7 +10,9 @@ db.on('error', () => {
 
 db.once('open', () => {
   console.log('mongodb connected!')
+  Todo.deleteMany({}).then(() => console.log('clear data'))
+  .catch((err) => console.log(err))
   for (let i = 0; i < 10; i++) {
-    Todo.create({name: `name-${i}`})
+    Todo.create({name: `name-${i}`, isDone: false})
   }
 })
