@@ -3,6 +3,7 @@ const router = express.Router()
 const passport = require('passport')
 const Todo = require('../../models/todo')
 const User = require('../../models/user')
+const bycrypt = require('bcryptjs')
 
 
 router.get('/login', (req,res) => {
@@ -59,10 +60,14 @@ router.post('/register', (req,res) => {
       })
       // 若否，寫入資料庫
     } else {
-      return User.create({
+      return bycrypt.genSalt(10)
+      .then(salt => bycrypt.hash(password,salt))
+      .then(hash => {
+      User.create({
         name,
         email,
-        password
+        password: hash
+        })
       })
       .then(() => res.redirect('/'))
       .catch(err => console.log(err))

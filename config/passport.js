@@ -13,6 +13,7 @@ module.exports = app => {
       if (!user) {
         return done(null, false, {message: 'The email is not registered'})
       }
+      
       if (user.password !== password) {
         return done(null, false), {message: 'Incorrect email or password'}
       }
