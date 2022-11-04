@@ -7,6 +7,7 @@ const usePassport = require('./config/passport')
 const methodOverride = require('method-override')
 const flash = require('connect-flash')
 
+
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
@@ -14,6 +15,7 @@ if (process.env.NODE_ENV !== 'production') {
 const routes = require('./routes') //automatically load index.js file
 require('./config/mogoose')
 const app = express()
+const PORT = process.env.PORT || 3000
 
 // set template engine
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
@@ -47,6 +49,6 @@ app.use((req, res, next) => {
 app.use(routes)
 
 // 設定 port 3000
-app.listen(3000, () => {
-  console.log('App is running on http://localhost:3000')
+app.listen(PORT, () => {
+  console.log(`App is running on http://localhost:${PORT}`)
 })
